@@ -1,5 +1,7 @@
 ﻿using Api_Full06.Data;
+using Api_Full06.DTO;
 using Api_Full06.Model;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -13,40 +15,57 @@ namespace Api_Full06.Controllers
     public class ProdutoController : Controller
     {
         private Data.AppContext _context;
+        private readonly IMapper _mapper;
 
-        public ProdutoController(Data.AppContext context)
+        public ProdutoController(Data.AppContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [Route("RetornaProdutos")]
         public IActionResult RetornaProdutos()
         {
-            return Ok(_context.Produtos.Include("Componente"));
+            return Ok(_context.Produtos);
         }
 
         [HttpGet]
         [Route("RetornaProdutoPorCodigo")]
-        public IActionResult RetornaProduto(string codigo)
+        public IActionResult RetornaProduto(int codigo)
         {
-            var produto = _context.Produtos.FirstOrDefault(p => p.Codigo == codigo);    
+            var produto = _context.Produtos.Where(p => p.Codigo == codigo).FirstOrDefault();
 
-            if(produto == null)
+            if (produto == null)
             {
-                return NotFound();
+                return NotFound("Produto não encontrado!");
             }
+            else
+            {
+                var componente = (List<Componente>)_context.Componentes.Where(c => c.ProdutoCodigo == codigo);
+
+                if (componente != null)
+                {
+                    foreach (var item in componente)
+                    {
+                        produto.Componente.Add(item);
+                    }
+                }
+
+            }
+
 
             return Ok(produto);
         }
 
         [HttpPost]
         [Route("InsereProduto")]
-        public IActionResult InsereProduto([FromBody] Produto produto)
+        public IActionResult InsereProduto([FromBody] ProdutoDTO produtoDTO)
         {
+            var produto = _mapper.Map<Produto>(produtoDTO);
             _context.Produtos.Add(produto);
             _context.SaveChanges();
-            return CreatedAtAction(nameof(RetornaProduto), new {id = produto.Id}, produto);
+            return CreatedAtAction(nameof(RetornaProduto), new { codigo = produto.Codigo }, produto);
         }
 
     }

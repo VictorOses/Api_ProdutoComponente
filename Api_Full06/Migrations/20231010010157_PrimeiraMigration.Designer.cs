@@ -2,6 +2,7 @@
 using Api_Full06.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -9,9 +10,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_Full06.Migrations
 {
     [DbContext(typeof(Data.AppContext))]
-    partial class ProdutoContextModelSnapshot : ModelSnapshot
+    [Migration("20231010010157_PrimeiraMigration")]
+    partial class PrimeiraMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -38,7 +40,7 @@ namespace Api_Full06.Migrations
                     b.Property<double>("Preco")
                         .HasColumnType("double");
 
-                    b.Property<int>("ProdutoId")
+                    b.Property<int>("ProdutoCodigo")
                         .HasColumnType("int");
 
                     b.Property<int>("Quantidade")
@@ -49,26 +51,23 @@ namespace Api_Full06.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ProdutoId");
+                    b.HasIndex("ProdutoCodigo");
 
                     b.ToTable("Componentes");
                 });
 
             modelBuilder.Entity("Api_Full06.Model.Produto", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Codigo")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    b.Property<string>("Codigo")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("int")
+                        .HasColumnOrder(0);
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("longtext");
 
-                    b.HasKey("Id");
+                    b.HasKey("Codigo");
 
                     b.ToTable("Produtos");
                 });
@@ -77,7 +76,7 @@ namespace Api_Full06.Migrations
                 {
                     b.HasOne("Api_Full06.Model.Produto", "Produto")
                         .WithMany("Componente")
-                        .HasForeignKey("ProdutoId")
+                        .HasForeignKey("ProdutoCodigo")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

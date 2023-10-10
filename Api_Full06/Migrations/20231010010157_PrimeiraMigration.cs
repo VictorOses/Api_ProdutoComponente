@@ -5,10 +5,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Api_Full06.Migrations
 {
-    public partial class CriandoTabelas : Migration
+    public partial class PrimeiraMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "Produtos",
+                columns: table => new
+                {
+                    Codigo = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Nome = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Produtos", x => x.Codigo);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "Componentes",
                 columns: table => new
@@ -23,30 +41,33 @@ namespace Api_Full06.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Preco = table.Column<double>(type: "double", nullable: false),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
-                    ProdutoId = table.Column<int>(type: "int", nullable: false)
+                    ProdutoCodigo = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Componentes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Componentes_Produtos_ProdutoId",
-                        column: x => x.ProdutoId,
+                        name: "FK_Componentes_Produtos_ProdutoCodigo",
+                        column: x => x.ProdutoCodigo,
                         principalTable: "Produtos",
-                        principalColumn: "Id",
+                        principalColumn: "Codigo",
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Componentes_ProdutoId",
+                name: "IX_Componentes_ProdutoCodigo",
                 table: "Componentes",
-                column: "ProdutoId");
+                column: "ProdutoCodigo");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
                 name: "Componentes");
+
+            migrationBuilder.DropTable(
+                name: "Produtos");
         }
     }
 }

@@ -1,14 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Api_Full06.Model;
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 
-namespace Api_Full06.Model
+namespace Api_Full06.DTO
 {
-    public class Componente
+    public class ComponenteDTO
     {
-        [JsonIgnore]
-        public int Id { get; set; }
-        [Required(ErrorMessage = "É obrigatório inserir o Código do Componente!")]
         public string Codigo { get; set; }
         [Required(ErrorMessage = "É obrigatório inserir o índice do Componente!")]
         public int Indice { get; set; }
@@ -20,8 +16,6 @@ namespace Api_Full06.Model
         public double Preco { get; set; }
         [Required(ErrorMessage = "É obrigatório inserir a quantidade do Componente!")]
         public int Quantidade { get; set; }
-        [JsonIgnore]
-        public virtual Produto Produto { get; set; }
-        public int ProdutoCodigo { get; set; }
+        public int ProdutoId { get; set; }
     }
 }

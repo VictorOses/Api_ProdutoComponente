@@ -1,19 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
 namespace Api_Full06.Model
 {
     public class Produto
     {
-        [Key]
-        [Required]
-        [JsonIgnore]
-        public int Id { get; set; }
-        [Required(ErrorMessage = "É obrigatório inserir o Código do Produto!")]        
-        public string Codigo { get; set; }
-        [Required(ErrorMessage = "É obrigatório inserir o Nome do Produto!")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key, Column(Order = 0)]
+        public int Codigo { get; set; }
+        
         public string Nome { get; set; }
-        [JsonIgnore]
-        public virtual List<Componente> Componente { get; set; }
+
+        public List<Componente> Componente { get; set; }
     }
 }
