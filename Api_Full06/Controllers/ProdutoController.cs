@@ -27,33 +27,19 @@ namespace Api_Full06.Controllers
         [Route("RetornaProdutos")]
         public IActionResult RetornaProdutos()
         {
-            return Ok(_context.Produtos);
+            return Ok(_context.Produtos.Include(a => a.Componente));
         }
 
         [HttpGet]
         [Route("RetornaProdutoPorCodigo")]
         public IActionResult RetornaProduto(int codigo)
         {
-            var produto = _context.Produtos.Where(p => p.Codigo == codigo).FirstOrDefault();
+            var produto = _context.Produtos.Where(p => p.Codigo == codigo ).Include(a => a.Componente).FirstOrDefault();
 
             if (produto == null)
             {
                 return NotFound("Produto não encontrado!");
             }
-            else
-            {
-                var componente = (List<Componente>)_context.Componentes.Where(c => c.ProdutoCodigo == codigo);
-
-                if (componente != null)
-                {
-                    foreach (var item in componente)
-                    {
-                        produto.Componente.Add(item);
-                    }
-                }
-
-            }
-
 
             return Ok(produto);
         }

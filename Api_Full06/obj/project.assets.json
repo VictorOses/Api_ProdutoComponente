@@ -1173,19 +1173,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\victo\\.nuget\\packages\\": {}
+    "C:\\Users\\victor.netto\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\victo\\Documents\\API\\Api_Full06\\Api_Full06\\Api_Full06.csproj",
+      "projectUniqueName": "C:\\Users\\victor.netto\\Desktop\\API_FULL006\\Api_ProdutoComponente\\Api_Full06\\Api_Full06.csproj",
       "projectName": "Api_Full06",
-      "projectPath": "C:\\Users\\victo\\Documents\\API\\Api_Full06\\Api_Full06\\Api_Full06.csproj",
-      "packagesPath": "C:\\Users\\victo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\victo\\Documents\\API\\Api_Full06\\Api_Full06\\obj\\",
+      "projectPath": "C:\\Users\\victor.netto\\Desktop\\API_FULL006\\Api_ProdutoComponente\\Api_Full06\\Api_Full06.csproj",
+      "packagesPath": "C:\\Users\\victor.netto\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\victor.netto\\Desktop\\API_FULL006\\Api_ProdutoComponente\\Api_Full06\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\victo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\victor.netto\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -1253,7 +1253,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.400\\RuntimeIdentifierGraph.json"
       }
     }
   }

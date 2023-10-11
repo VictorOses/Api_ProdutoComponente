@@ -28,6 +28,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+using (IServiceScope serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
+{
+    var context = serviceScope.ServiceProvider.GetRequiredService<Api_Full06.Data.AppContext>();
+    context.Database.Migrate();
+}
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
