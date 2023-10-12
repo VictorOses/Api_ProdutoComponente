@@ -3,18 +3,18 @@
 FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
 WORKDIR /app
 EXPOSE 80
-EXPOSE 443
+#EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["Api_Full06.csproj", "."]
-RUN dotnet restore "./Api_Full06.csproj"
+COPY ["Api_Full06/Api_Full06.csproj", "Api_Full06/"]
+RUN dotnet restore "Api_Full06/Api_Full06.csproj"
 COPY . .
-WORKDIR "/src/."
+WORKDIR "/src/Api_Full06"
 RUN dotnet build "Api_Full06.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "Api_Full06.csproj" -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Api_Full06.csproj" -c Release -o /app/publish
 
 FROM base AS final
 WORKDIR /app

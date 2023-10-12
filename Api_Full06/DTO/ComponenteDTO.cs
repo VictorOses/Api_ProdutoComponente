@@ -16,6 +16,5 @@ namespace Api_Full06.DTO
         public double Preco { get; set; }
         [Required(ErrorMessage = "É obrigatório inserir a quantidade do Componente!")]
         public int Quantidade { get; set; }
-        public int ProdutoId { get; set; }
     }
 }

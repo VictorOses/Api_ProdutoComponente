@@ -1,6 +1,8 @@
 using Api_Full06.Data;
 using Api_Full06.Mappings;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// Valida a existência de um Migrate, caso contrário, irá atualizar o Database
 using (IServiceScope serviceScope = app.Services.GetService<IServiceScopeFactory>().CreateScope())
 {
     var context = serviceScope.ServiceProvider.GetRequiredService<Api_Full06.Data.AppContext>();

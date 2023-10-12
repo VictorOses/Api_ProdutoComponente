@@ -16,14 +16,16 @@ namespace Api_Full06.Migrations
                 name: "Produtos",
                 columns: table => new
                 {
-                    Codigo = table.Column<int>(type: "int", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Codigo = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Nome = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produtos", x => x.Codigo);
+                    table.PrimaryKey("PK_Produtos", x => x.Id);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -41,24 +43,25 @@ namespace Api_Full06.Migrations
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Preco = table.Column<double>(type: "double", nullable: false),
                     Quantidade = table.Column<int>(type: "int", nullable: false),
-                    ProdutoCodigo = table.Column<int>(type: "int", nullable: false)
+                    ProdutoCodigo = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    ProdutoId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Componentes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Componentes_Produtos_ProdutoCodigo",
-                        column: x => x.ProdutoCodigo,
+                        name: "FK_Componentes_Produtos_ProdutoId",
+                        column: x => x.ProdutoId,
                         principalTable: "Produtos",
-                        principalColumn: "Codigo",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Componentes_ProdutoCodigo",
+                name: "IX_Componentes_ProdutoId",
                 table: "Componentes",
-                column: "ProdutoCodigo");
+                column: "ProdutoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
