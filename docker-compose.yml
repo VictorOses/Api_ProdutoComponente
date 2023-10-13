@@ -29,7 +29,7 @@ services:
       restart: always
       environment: 
         MYSQL_ROOT_PASSWORD: root
-        MYSQL_USER: root
+        MYSQL_USER: user
         MYSQL_PASSWORD: root
         MYSQL_DATABASE: api_full06
 volumes:
