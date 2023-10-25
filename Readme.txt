@@ -10,3 +10,5 @@ Passo a passo para rodar o projeto no Docker.
 
 4) Para acessar o projeto, que está liberado na porta 5000, vá até no link abaixo:
 -> http://localhost:5000/swagger/index.html
+
+sdhasjkdbaskjdbsajkd
